@@ -1,93 +1,61 @@
 #include <bits/stdc++.h> 
 using namespace std;
-int mark[500][500];
-int di[4] = {0,0,1,-1};
-int dj[4] = {1,-1,0,0};
+
 int main(){
-  int h,w,q,r1,c1,r2,c2,count = 0,itemp,jtemp,itempd,jtempd; cin >> h >> w;
-  bool foundfirst = false;
-  char arr[h][w];
-  for (int i = 0; i < h; i++){
-    for (int j = 0; j < w; j++){
-      cin >> arr[i][j];
-      if (arr[i][j] == '#'){
-        mark[i][j] = -1;
+  int h,w,q,x1,x2,y1,y2,count = 0; cin >> h >> w;
+  char arr[h+2][w+2];
+  int psum[h+2][w+2];
+  for (int i = 1; i <= h; i++){
+    for (int j = 1; j <= w; j++){
+      cin >> arr[i][j];psum[i][j] = 0;
+    }
+  }
+  for (int i = 0; i <= h+1; i++){
+    psum[i][0] = 0;
+    psum[0][i] = 0;
+    arr[i][0] = '#';
+    arr[0][i] = '#';
+  }
+  for (int i = 2; i <= h; i++){
+    if (arr[i][1] == '.' && arr[i-1][1] == '.'){
+      count++;
+    }
+    psum[i][1] = count;
+  }
+  count = 0;
+  for (int i = 2; i <= w; i++){
+    if (arr[1][i] == '.' && arr[1][i-1] == '.'){
+      count++;
+    }
+    psum[1][i] = count;
+  }
+  for (int i = 2; i <= h; i++){
+    for (int j = 2; j <= w; j++){
+      psum[i][j] = psum[i-1][j] + psum[i][j-1]-psum[i-1][j-1];
+      if (arr[i][j] == '.'){
+        if (arr[i-1][j] == '.'){
+          psum[i][j]++;
+        }
+        if (arr[i][j-1] == '.'){
+          psum[i][j]++;
+        }
       }
     }
   }
-  cin >> q; 
-  queue <int> icoord;
-  queue <int> jcoord;
-    cin >> r1 >> c1 >> r2 >> c2;r1--;c1--;
-    count = 0;
-
-    foundfirst = false;
-    for (int i = 0; i < h; i++){
-      for (int j = 0; j < w; j++){
-        if (arr[i][j] == '.'){
-          icoord.push(i);
-          jcoord.push(j);
-          foundfirst = true;
-          break;
+  cin >> q; int ans;
+  for (int i = 0; i < q; i++){
+    cin >> x1 >> y1 >> x2 >> y2;
+    ans = psum[x2][y2]-psum[x1-1][y2]-psum[x2][y1-1]+psum[x1-1][y1-1];
+      for (int a = y1; a <= y2; a++){
+        if (arr[x1-1][a] == '.' && arr[x1][a] == '.'){
+          ans--;
         }
       }
-      if (foundfirst){
-        break;
-      }
-    }
-
-    while (icoord.size() > 0 && jcoord.size() > 0){
-      itemp = icoord.front();
-      jtemp = jcoord.front();
-      icoord.pop();
-      jcoord.pop();
-      if (mark[itemp][jtemp] == 0){
-        mark[itemp][jtemp] = 1;
-        for (int loop = 0; loop < 4; loop++){
-          itempd = itemp+di[loop];
-          jtempd = jtemp+dj[loop];
-
-          if (itempd >= r1 && jtempd >= c1 && itempd < r2 && jtempd < c2){
-            if (arr[itempd][jtempd] == '.' && mark[itempd][jtempd] == 0){
-              count++;
-              //mark[itempd][jtempd] = -2;  
-              icoord.push(itempd);
-              jcoord.push(jtempd);
-            }
-            /*       
-            for (int i = r1; i < r2; i++){
-              for (int j = c1; j < c2; j++){
-                cout << mark[i][j] << " ";
-              }
-              cout << "" << endl;
-            }
-            cout << count << endl;
-            cout << "" << endl;
-          if (mark[itempd][jtempd] == -2){
-            mark[itempd][jtempd] = 0;
-          }
-          */
-          }
+      for (int a = x1; a <= x2; a++){
+        if (arr[a][y1-1] == '.' && arr[a][y1] == '.'){
+          ans--;
         }
       }
-      if (icoord.size() == 0 && jcoord.size() == 0){
-        foundfirst = false;
-        for (int i = 0; i < h; i++){
-          for (int j = 0; j < w; j++){
-            if (arr[i][j] == '.' && mark[i][j] == 0){
-              icoord.push(i);
-              jcoord.push(j);
-              foundfirst = true;
-              break;
-            }
-          }
-          if (foundfirst){
-            break;
-          }
-        }
-      }
-    }
-
-    cout << count << endl;
-  
+    cout << ans << endl;
+  }
 }
