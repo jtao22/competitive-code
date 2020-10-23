@@ -18,8 +18,8 @@ bool binarysearch(int arr[], int q, int left, int right){
 int main(){
   //freopen("problem.in","r",stdin);
   //freopen("problem.out","w",stdout);
-  int n,q;
-  int x; int arr[n]; cin >> n >> q;
+  int n,q; cin >> n >> q;
+  int x; int arr[n];
   for (int i = 0; i < n; i++){
     cin >> arr[i];
   }
