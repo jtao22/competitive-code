@@ -19,7 +19,7 @@ int main(){
   for (int i = prev; i <= n; i++){
     arr[i] = count;
   }
-  for (int i = 1; i < n-k; i++){
+  for (int i = 1; i <= n-k; i++){
     best = min(best,arr[i+k]-arr[i]);
   }
   cout << best << endl;
