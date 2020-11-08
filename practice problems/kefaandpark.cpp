@@ -5,9 +5,9 @@ struct nodes{
   bool isrest = false;
 };
 int n,m,x,y,temp,tempcount; 
-vector<int> adj[10005];
-bool visited[10005];
-int catcount[10005];
+vector<int> adj[100001];
+bool visited[100001];
+int catcount[100001];
 int main(){
   cin >> n >> m;
   nodes node[n+5];
