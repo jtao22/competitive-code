@@ -1,33 +1,44 @@
 #include <bits/stdc++.h> 
 using namespace std;
-bool comp(pair<int,int>a, pair<int,int>b){
+typedef long long ll;
+typedef pair<int,int> pii;
+int n,currmax,x,y,total;
+vector<pii> coord;
+map<int,int>m;
+bool inside = false;
+bool hidden[100001];
+bool comp(pii a, pii b){
   return a.second > b.second;
 }
 int main(){
   freopen("mountains.in","r",stdin);
   freopen("mountains.out","w",stdout);
-  int n; cin >> n;
-  pair <int,int> coord[n];
-  int vis[n];
+  cin >> n;
   for (int i = 0; i < n; i++){
-    cin >> coord[i].first >> coord[i].second;
-    vis[i] = 0;
+    cin >> x >> y;
+    if (m.find(x) == m.end()){
+      m[x] = y;
+    }
+    else{
+      m[x] = max(m[x],y);
+    }
   }
-  sort(coord,coord+n,comp);
-  int count = n;
-  for (int i = 0; i < n; i++){
-    if (vis[i] == 0){
-      for (int j = i+1; j < n; j++){
-        if (vis[j] == 0){
-          int tempx1 = coord[i].second-coord[i].first+coord[j].second;
-          int tempx2 = coord[i].second + coord[i].first - coord[j].second;
-          if (coord[j].first > tempx1 && coord[j].first < tempx2){
-            count--;
-            vis[j] = 1;
+  for (auto i = m.begin(); i != m.end(); i++){
+    coord.push_back(make_pair(i->first, i->second));
+  }
+  sort(coord.begin(),coord.end(),comp);
+  total = coord.size();
+  for (int i  = 0; i < coord.size(); i++){
+    if (!hidden[i]){
+      for (int j = coord.size()-1; j > i; j--){
+        if(!hidden[j]){
+          if(coord[j].first  >= coord[j].second - (coord[i].second - coord[i].first) && coord[j].first <= (coord[i].second+coord[i].first)-coord[j].second){
+            total--;
+            hidden[j] = true;
           }
         }
       }
     }
   }
-  cout << count << endl;
+  cout << total << endl;
 }
