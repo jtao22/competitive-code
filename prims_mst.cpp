@@ -7,7 +7,7 @@ int dj[4] = {0,0,1,-1};
 int n,m,x,y,l,length=0;
 vector<pii> adj[100];
 priority_queue<pii, vector<pii>, greater<pii>> pq;
-int dist[100];
+bool dist[100];
 pii curr;
 
 int main() {
@@ -17,20 +17,18 @@ int main() {
     adj[x].push_back(pii(l, y));
     adj[y].push_back(pii(l, x));
   }
-  for (int i = 0; i < n; i++) {
-    dist[i] = -1;
-  }
+
   pq.push(pii(0, 0));
   while (!pq.empty()) {
     curr = pq.top();
     pq.pop();
-    if(dist[curr.second] != -1) {
+    if(dist[curr.second]) {
       continue;
     }
-    dist[curr.second] = curr.first;
+    dist[curr.second] = true;
     length += curr.first;
     for (pii j : adj[curr.second]) {
-      if (dist[j.second] == -1) {
+      if (!dist[j.second]) {
         pq.push(pii(j.first, j.second));
       }
     }
