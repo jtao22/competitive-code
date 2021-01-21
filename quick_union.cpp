@@ -1,4 +1,6 @@
 //better with compression and weighted comparison, will implement later
+//weighted - when combining trees, add smaller one to larger one, store sizes of all trees
+//compression - when searching to find root, change all traversed node roots to root
 #include <bits/stdc++.h> 
 using namespace std;
 typedef long long ll;
