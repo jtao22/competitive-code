@@ -1,3 +1,4 @@
+//better with compression and weighted comparison, will implement later
 #include <bits/stdc++.h> 
 using namespace std;
 typedef long long ll;
