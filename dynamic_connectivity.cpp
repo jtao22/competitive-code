@@ -35,7 +35,7 @@ int main(){
   }
   for (int i = 0; i < k; i++){
     cin >> a >> b;
-    if(qf[a] == qf[b]){
+    if(qf[a] == qf[b] && qf[a) != 0{
       cout << "YES" << endl;
     }
     else{
