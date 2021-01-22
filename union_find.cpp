@@ -7,12 +7,14 @@ int dj[4] = {0,0,1,-1};
 int n,m,a,b;
 int parent[10000];
 int length[10000];
+
 int root(int x){
   if(parent[x] == x){
     return x;
   }
   return root(parent[x]);
 }
+
 void join(int x, int y){
   int rootx = root(x), rooty = root(y);
   if(length[rootx] > length[rooty]){
@@ -23,6 +25,7 @@ void join(int x, int y){
     length[rooty] = max(length[rooty],length[rootx]+1);
   }
 }
+
 int main(){
   cin >> n >> m;
   for (int i = 1; i <= n; i++){
