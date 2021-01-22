@@ -6,7 +6,7 @@ int di[4] = {1,-1,0,0};
 int dj[4] = {0,0,1,-1};
 int n,m,a,b;
 int parent[10000];
-int length[1000];
+int length[10000];
 int root(int x){
   if(parent[x] == x){
     return x;
