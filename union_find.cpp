@@ -15,12 +15,12 @@ int root(int x){
 }
 void join(int x, int y){
   int rootx = root(x), rooty = root(y);
-  if(length[x] > length[y]){
-    parent[y] = x;
+  if(length[rootx] > length[rooty]){
+    parent[rooty] = rootx;
   }
   else{
-    parent[x] = y;
-    length[y] = max(length[y],length[x]+1);
+    parent[rootx] = rooty;
+    length[rooty] = max(length[rooty],length[rootx]+1);
   }
 }
 int main(){
