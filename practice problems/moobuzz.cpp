@@ -6,6 +6,6 @@ int main(){
   int n,sum=0; cin >> n;
   int a = n%8;
   int arr[8] = {1,2,4,7,8,11,13,14};
-  sum+=arr[a-1]+15*(n/8);
+  sum+=arr[a-1]+15*(n/8); 
   cout << sum << endl;
 }
