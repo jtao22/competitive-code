@@ -1,6 +1,6 @@
 #include <bits/stdc++.h> 
 using namespace std;
-int n,min,max,mid,q,a,b;
+int n,q,a,b;
 	int check(int arr[], int limit) {
 		if(arr[0] > limit) {
 			return 0;
