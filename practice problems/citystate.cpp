@@ -1,15 +1,25 @@
-#include <bits/stdc++.h> 
+#include <iostream>
+#include <cstdio>
+#include <bits/stdc++.h>
 using namespace std;
-map<string,int>m;
+int n;
+map<string,vector<string>>m;
 int main(){
-  int n,count = 0; cin >> n; string city, state;
-  map<string,int>cs;
+  freopen("citystate.in","r",stdin);
+  freopen("citystate.out","w",stdout);
+  cin >> n; string city, state;
+  int count = 0;
   for (int i = 0; i < n; i++){
-    cin >> city >> state; city = city.substr(0,2);
-    if (cs.find(state+city) != cs.end() && city != state){
-      count+=cs[state+city];
+    cin >> city >> state;
+    city = city.substr(0,2);
+    if(city != state){
+      for(string s : m[city]){
+        if(s == state){
+          count++;
+        }
+      }
+      m[state].push_back(city);
     }
-    cs[city+state]++;
   }
   cout << count << endl;
 }
